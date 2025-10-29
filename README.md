@@ -159,4 +159,16 @@ MIT
 ## Contributing
 
 This is a personal project, but suggestions and feedback are welcome!
+
+## What I Learned
+
+This project helped me get comfortable using Warp, Claude Code CLI, and Git together in a real development workflow.  
+I learned how to:
+
+- Use **Claude Code CLI** inside Warp to quickly scaffold and edit the project through short, clear prompts.  
+- Run and test the app locally, checking that features worked before committing changes.   
+- Push the finished work to **GitHub**, completing the full **build → test → push** cycle.
+
+Working through each stage made the process of developing, testing, and versioning a project feel natural. It also showed me how different tools fit together.
+
 # event-calendar
