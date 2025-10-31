@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(npm install)",
+      "Bash(npm run prisma:generate:*)",
+      "Bash(docker --version:*)",
+      "Bash(docker compose:*)",
+      "Bash(psql:*)",
+      "Bash(where postgres:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(npm audit:*)",
+      "Bash(npm install:*)",
+      "Bash(docker exec:*)",
+      "Bash(node -e:*)",
+      "Bash(node test-date-logic.js:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,0 +1,22 @@
+# Docker Compose Override Example
+# This file provides additional configuration for local development
+# Copy this to docker-compose.override.yml to use it locally
+#
+# Usage:
+#   cp docker-compose.override.yml.example docker-compose.override.yml
+#
+# Note: docker-compose.override.yml is gitignored and will automatically
+# be used by docker-compose if it exists
+
+services:
+  # Uncomment to expose PostgreSQL port for local database access
+  # (e.g., using pgAdmin, DBeaver, or psql)
+  postgres:
+    ports:
+      - "5432:5432"
+
+  # Uncomment for hot-reload during development
+  # backend:
+  #   volumes:
+  #     - ./server/src:/app/src
+  #   command: sh -c "npx prisma migrate deploy && npm run dev"

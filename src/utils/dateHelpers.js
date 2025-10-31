@@ -103,8 +103,8 @@ export function formatDateTime(date) {
  * @returns {boolean}
  */
 export function isEventOnDay(event, day) {
-  const start = parseISO(event.startDate);
-  const end = event.endDate ? parseISO(event.endDate) : start;
+  const start = event.startDate instanceof Date ? event.startDate : parseISO(event.startDate);
+  const end = event.endDate ? (event.endDate instanceof Date ? event.endDate : parseISO(event.endDate)) : start;
 
   // Check if day falls within event range
   return isWithinInterval(day, { start, end }) || isSameDay(day, start) || isSameDay(day, end);
@@ -126,7 +126,7 @@ export function groupEventsByTime(events) {
   };
 
   events.forEach(event => {
-    const eventDate = parseISO(event.startDate);
+    const eventDate = event.startDate instanceof Date ? event.startDate : parseISO(event.startDate);
 
     if (isBefore(eventDate, now) && !isSameDay(eventDate, now)) {
       groups.past.push(event);
@@ -151,8 +151,8 @@ export function groupEventsByTime(events) {
  */
 export function sortEventsByDate(events) {
   return [...events].sort((a, b) => {
-    const dateA = parseISO(a.startDate);
-    const dateB = parseISO(b.startDate);
+    const dateA = a.startDate instanceof Date ? a.startDate : parseISO(a.startDate);
+    const dateB = b.startDate instanceof Date ? b.startDate : parseISO(b.startDate);
     return dateA - dateB;
   });
 }

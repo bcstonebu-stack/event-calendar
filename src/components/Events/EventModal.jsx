@@ -37,7 +37,19 @@ export function EventModal({ isOpen, onClose, onSave, event = null, prefilledDat
       });
     } else {
       // Reset form for new event
-      const now = prefilledDate || new Date();
+      let now = new Date();
+
+      if (prefilledDate) {
+        if (prefilledDate instanceof Date && !isNaN(prefilledDate.getTime())) {
+          now = prefilledDate;
+        } else if (typeof prefilledDate === 'string' || typeof prefilledDate === 'number') {
+          const parsedDate = new Date(prefilledDate);
+          if (!isNaN(parsedDate.getTime())) {
+            now = parsedDate;
+          }
+        }
+      }
+
       setFormData({
         title: '',
         description: '',
