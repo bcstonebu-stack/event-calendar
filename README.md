@@ -5,13 +5,14 @@ A modern, minimalist event calendar web application built with React, Express, a
 ## TL;DR - Deploy from GitHub
 
 ```bash
-# Recommended: Automated setup with secure passwords
+# Interactive deployment (asks for your IP/domain)
+git clone https://github.com/bcstonebu-stack/event-calendar.git && cd event-calendar && ./deploy.sh
+
+# Or: Localhost only with auto-setup
 git clone https://github.com/bcstonebu-stack/event-calendar.git && cd event-calendar && ./setup.sh
 
-# Or: Quick test (uses default password - localhost only)
+# Or: Quick test (default password)
 git clone https://github.com/bcstonebu-stack/event-calendar.git && cd event-calendar && docker-compose up -d
-
-# Access at http://localhost
 ```
 
 **What you get:**
@@ -59,9 +60,38 @@ git clone https://github.com/bcstonebu-stack/event-calendar.git && cd event-cale
 
 ### Deployment Options
 
-#### **Option 1: Automated Setup (Recommended)** ⭐
+#### **Option 1: Interactive Deployment (Recommended)** ⭐
 
-Perfect for production and local testing with secure defaults.
+Perfect for any environment - prompts for your setup details.
+
+```bash
+git clone https://github.com/bcstonebu-stack/event-calendar.git
+cd event-calendar
+./deploy.sh
+```
+
+**The script will ask:**
+- 📍 How users will access (domain, IP, or localhost)
+- 🔐 Whether to generate a secure password
+- 🚀 Whether to deploy immediately
+
+**Benefits:**
+- ✅ Works for localhost, IP addresses, or domain names
+- ✅ Automatically configures VITE_API_URL correctly
+- ✅ Optional secure random password generation
+- ✅ Validates Docker installation
+- ✅ Interactive and user-friendly
+
+**Examples:**
+- Localhost: Answers "3" → Access at `http://localhost`
+- Tailscale/VPN: Answers "2" + `100.86.36.51` → Access at `http://100.86.36.51`
+- Domain: Answers "1" + `calendar.mysite.com` → Access at `http://calendar.mysite.com`
+
+---
+
+#### **Option 2: Localhost Auto-Setup** 🏠
+
+For localhost-only deployment with secure defaults.
 
 ```bash
 git clone https://github.com/bcstonebu-stack/event-calendar.git
@@ -69,19 +99,11 @@ cd event-calendar
 ./setup.sh
 ```
 
-**Benefits:**
-- ✅ Generates secure random passwords automatically
-- ✅ Creates .env files with proper configuration
-- ✅ Validates Docker installation
-- ✅ Shows helpful post-setup information
-
-**Access at:**
-- Frontend: http://localhost
-- API: http://localhost:3001/api
+**Access at:** http://localhost
 
 ---
 
-#### **Option 2: One-Liner Quick Test** ⚡
+#### **Option 3: Quick Test (No Config)** ⚡
 
 Fastest way to test locally (uses default password).
 
@@ -91,13 +113,13 @@ git clone https://github.com/bcstonebu-stack/event-calendar.git && cd event-cale
 
 **Access at:** http://localhost
 
-⚠️ **Security Note:** Uses default password (`calendar_password`). Fine for local testing, but **change it for production** by creating a `.env` file.
+⚠️ **Security Note:** Uses default password. Fine for testing.
 
 ---
 
-#### **Option 3: Production Deployment** 🚀
+#### **Option 4: Manual Configuration** 🔧
 
-For deployment to a server with domain name or IP address.
+For full control over deployment.
 
 ```bash
 # Clone repository
