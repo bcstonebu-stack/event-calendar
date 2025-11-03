@@ -2,14 +2,14 @@
 
 A modern, minimalist event calendar web application built with React, Express, and PostgreSQL. Features light/dark mode support, persistent storage, and easy Docker deployment.
 
-## TL;DR
+## TL;DR - Deploy from GitHub
 
 ```bash
-# One-command setup (requires Docker)
-./setup.sh
+# Recommended: Automated setup with secure passwords
+git clone https://github.com/bcstonebu-stack/event-calendar.git && cd event-calendar && ./setup.sh
 
-# Or manually
-docker-compose up -d
+# Or: Quick test (uses default password - localhost only)
+git clone https://github.com/bcstonebu-stack/event-calendar.git && cd event-calendar && docker-compose up -d
 
 # Access at http://localhost
 ```
@@ -57,46 +57,89 @@ docker-compose up -d
 
 **Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed
 
-### Using the Setup Script (Easiest)
+### Deployment Options
+
+#### **Option 1: Automated Setup (Recommended)** ⭐
+
+Perfect for production and local testing with secure defaults.
 
 ```bash
-# Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/bcstonebu-stack/event-calendar.git
 cd event-calendar
-
-# Run the automated setup script
 ./setup.sh
-
-# Access the app at:
-# Frontend: http://localhost
-# API: http://localhost:3001/api
 ```
 
-The setup script will:
-- ✅ Check Docker installation
-- ✅ Generate secure random passwords
-- ✅ Create .env files automatically
-- ✅ Start all containers
+**Benefits:**
+- ✅ Generates secure random passwords automatically
+- ✅ Creates .env files with proper configuration
+- ✅ Validates Docker installation
+- ✅ Shows helpful post-setup information
 
-### Manual Docker Setup
+**Access at:**
+- Frontend: http://localhost
+- API: http://localhost:3001/api
+
+---
+
+#### **Option 2: One-Liner Quick Test** ⚡
+
+Fastest way to test locally (uses default password).
 
 ```bash
-# Clone and enter directory
-git clone <your-repo-url>
+git clone https://github.com/bcstonebu-stack/event-calendar.git && cd event-calendar && docker-compose up -d
+```
+
+**Access at:** http://localhost
+
+⚠️ **Security Note:** Uses default password (`calendar_password`). Fine for local testing, but **change it for production** by creating a `.env` file.
+
+---
+
+#### **Option 3: Production Deployment** 🚀
+
+For deployment to a server with domain name or IP address.
+
+```bash
+# Clone repository
+git clone https://github.com/bcstonebu-stack/event-calendar.git
 cd event-calendar
 
 # Create environment files
 cp .env.example .env
 cp server/.env.example server/.env
 
-# IMPORTANT: Edit .env and server/.env to set secure passwords
-# Change POSTGRES_PASSWORD from default value
+# CRITICAL: Edit .env and configure:
+# 1. Set a secure POSTGRES_PASSWORD
+# 2. Set VITE_API_URL to match how users access your app:
+#    - Domain: VITE_API_URL=http://yourdomain.com:3001/api
+#    - IP: VITE_API_URL=http://192.168.x.x:3001/api
+#    - With reverse proxy: VITE_API_URL=https://yourdomain.com/api
 
-# Start all services
+# Deploy
 docker-compose up -d
 ```
 
-That's it! See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions, manual setup, and troubleshooting.
+**Access at:** Your configured domain or IP address
+
+📖 See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed production setup, reverse proxy configuration, and HTTPS setup
+
+---
+
+### Common Issues & Solutions
+
+**Q: Frontend loads but shows "Loading events..." forever?**
+**A:** The `VITE_API_URL` in `.env` doesn't match how you're accessing the app.
+- Accessing via `http://localhost` → Use `http://localhost:3001/api`
+- Accessing via domain → Use `http://yourdomain.com:3001/api`
+- After changing, rebuild: `docker-compose up -d --build frontend`
+
+**Q: Want to use a different database password?**
+**A:** Create a `.env` file and set `POSTGRES_PASSWORD=your_secure_password`, then deploy.
+
+**Q: How do I stop the application?**
+**A:** `docker-compose down` (keeps data) or `docker-compose down -v` (removes data)
+
+📚 **Full troubleshooting guide:** [DEPLOYMENT.md](./DEPLOYMENT.md)
 
 ## Development Setup (Without Docker)
 

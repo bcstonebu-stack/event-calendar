@@ -14,7 +14,14 @@
       "Bash(npm install:*)",
       "Bash(docker exec:*)",
       "Bash(node -e:*)",
-      "Bash(node test-date-logic.js:*)"
+      "Bash(node test-date-logic.js:*)",
+      "Bash(git push:*)",
+      "Bash(docker system prune:*)",
+      "Bash(rm:*)",
+      "Bash(bash setup.sh:*)",
+      "Bash(cat:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

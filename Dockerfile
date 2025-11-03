@@ -12,7 +12,11 @@ RUN npm ci
 # Copy source code
 COPY . .
 
-# Build the React app
+# Accept build argument for API URL
+ARG VITE_API_URL=http://localhost:3001/api
+ENV VITE_API_URL=${VITE_API_URL}
+
+# Build the React app (Vite will use VITE_API_URL during build)
 RUN npm run build
 
 # Production stage - serve with nginx

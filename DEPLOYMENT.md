@@ -1,5 +1,25 @@
 # Event Calendar - Deployment Guide
 
+## ⚠️ IMPORTANT: API URL Configuration
+
+Before deploying, you **MUST** configure the `VITE_API_URL` in your `.env` file based on how users will access your application:
+
+| Access Method | VITE_API_URL Example | When to Use |
+|---------------|---------------------|-------------|
+| **Localhost** | `http://localhost:3001/api` | Testing on your local machine |
+| **Domain Name** | `http://yourdomain.com:3001/api` | Accessing via domain (production) |
+| **IP Address** | `http://192.168.1.100:3001/api` | Accessing via LAN/network IP |
+| **Reverse Proxy** | `https://yourdomain.com/api` | Production with nginx/traefik |
+
+**Why this matters:** The `VITE_API_URL` is **baked into the frontend JavaScript at build time**. If you set it to `localhost` but users access via an IP address, the frontend will fail to connect to the backend.
+
+**After changing VITE_API_URL, you MUST rebuild the frontend:**
+```bash
+docker-compose up -d --build frontend
+```
+
+---
+
 ## Quick Start with Docker (Recommended)
 
 The easiest way to run the Event Calendar app is with Docker Compose.
@@ -213,9 +233,31 @@ docker-compose up -d --build
 - Run migrations: `npm run prisma:migrate`
 
 ### Frontend can't connect to API
-- Check backend is running on port 3001
-- Verify VITE_API_URL in `.env`
-- Check CORS is enabled in backend
+
+**Symptom:** Frontend loads but shows "Loading events..." forever, or browser console shows connection errors.
+
+**Most Common Cause:** Incorrect `VITE_API_URL` configuration.
+
+**Solution:**
+1. Check how you're accessing the app:
+   - Browser URL is `http://localhost` → VITE_API_URL should be `http://localhost:3001/api`
+   - Browser URL is `http://192.168.1.100` → VITE_API_URL should be `http://192.168.1.100:3001/api`
+   - Browser URL is `http://yourdomain.com` → VITE_API_URL should be `http://yourdomain.com:3001/api`
+
+2. Update `.env` file with the correct URL
+3. **CRITICAL:** Rebuild the frontend container:
+   ```bash
+   docker-compose up -d --build frontend
+   ```
+
+**How to verify the issue:**
+- Open browser DevTools (F12) → Console
+- Look for errors like: `Failed to fetch` or `net::ERR_CONNECTION_REFUSED`
+- Check the failing URL - if it's trying to connect to `localhost` but you're accessing via IP, this is the issue
+
+**Other checks:**
+- Backend is running: `curl http://localhost:3001/api/health`
+- CORS is enabled in backend (should return `Access-Control-Allow-Origin` header)
 
 ### Docker issues
 - Check Docker is running: `docker ps`
