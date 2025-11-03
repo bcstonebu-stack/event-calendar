@@ -53,11 +53,11 @@ export function CalendarGrid({ events, onDayClick, onDayDoubleClick, onEventClic
       />
 
       {/* Weekday headers */}
-      <div className="grid grid-cols-7 gap-px mb-px">
+      <div className="grid grid-cols-7 gap-2 mb-2">
         {WEEKDAYS.map((day) => (
           <div
             key={day}
-            className="bg-gray-100 dark:bg-gray-700 p-2 text-center text-sm font-semibold text-gray-700 dark:text-gray-300"
+            className="backdrop-blur-md bg-white/50 dark:bg-gray-800/50 border border-white/20 dark:border-gray-700/30 p-3 text-center text-sm font-bold text-gray-700 dark:text-gray-300 rounded-xl shadow-sm"
           >
             {day}
           </div>
@@ -65,7 +65,7 @@ export function CalendarGrid({ events, onDayClick, onDayDoubleClick, onEventClic
       </div>
 
       {/* Calendar grid */}
-      <div className="grid grid-cols-7 gap-px bg-gray-200 dark:bg-gray-700 border border-gray-200 dark:border-gray-700">
+      <div className="grid grid-cols-7 gap-2 p-1">
         {calendarDays.map((day, index) => {
           const dayEvents = getEventsForDay(events, day);
           const isSelected = selectedDay && day.toDateString() === selectedDay.toDateString();
