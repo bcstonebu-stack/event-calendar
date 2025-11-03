@@ -14,7 +14,7 @@ export function Header({ theme, onToggleTheme, currentView, onToggleView, onAddE
             <div className="bg-gradient-to-br from-blue-500 to-purple-600 dark:from-blue-400 dark:to-purple-500 rounded-xl p-2.5 shadow-lg shadow-blue-500/30 dark:shadow-purple-500/30 transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-blue-500/40">
               <CalendarIcon className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent transition-all duration-300">
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white transition-all duration-300">
               Event Calendar
             </h1>
           </div>

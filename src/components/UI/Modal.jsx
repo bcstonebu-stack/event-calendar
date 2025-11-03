@@ -57,7 +57,7 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }) {
       >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-white/20 dark:border-gray-700/30 backdrop-blur-sm">
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             {title}
           </h2>
           <button

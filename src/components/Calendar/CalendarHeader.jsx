@@ -9,7 +9,7 @@ export function CalendarHeader({ currentDate, onPreviousMonth, onNextMonth, onTo
 
   return (
     <div className="flex items-center justify-between mb-6 p-4 backdrop-blur-lg bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-white/20 dark:border-gray-700/30 shadow-xl shadow-purple-500/5">
-      <h2 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+      <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
         {month} {year}
       </h2>
 
