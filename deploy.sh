@@ -12,14 +12,17 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
-# Check if Docker Compose is available
-if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null; then
+# Detect which docker compose command to use
+DOCKER_COMPOSE="docker compose"
+if command -v docker-compose &> /dev/null; then
+    DOCKER_COMPOSE="docker-compose"
+elif ! docker compose version &> /dev/null 2>&1; then
     echo "❌ Docker Compose is not available. Please install Docker Compose:"
     echo "   https://docs.docker.com/compose/install/"
     exit 1
 fi
 
-echo "✅ Docker is installed"
+echo "✅ Docker is installed (using: $DOCKER_COMPOSE)"
 echo ""
 
 # Function to generate random password
@@ -147,7 +150,7 @@ if [[ $deploy_now =~ ^[Yy]$ ]]; then
     echo "   This may take a few minutes for the first build..."
     echo ""
 
-    docker compose up -d --build
+    $DOCKER_COMPOSE up -d --build
 
     echo ""
     echo "⏳ Waiting for services to be ready..."
@@ -161,22 +164,22 @@ if [[ $deploy_now =~ ^[Yy]$ ]]; then
     echo "   Backend API: ${API_URL%/api}/health"
     echo ""
     echo "📝 Useful commands:"
-    echo "   View logs:        docker compose logs -f"
-    echo "   Stop services:    docker compose down"
-    echo "   Restart services: docker compose restart"
-    echo "   Remove data:      docker compose down -v"
+    echo "   View logs:        $DOCKER_COMPOSE logs -f"
+    echo "   Stop services:    $DOCKER_COMPOSE down"
+    echo "   Restart services: $DOCKER_COMPOSE restart"
+    echo "   Remove data:      $DOCKER_COMPOSE down -v"
     echo ""
 
     # Try to check if services are running
-    if docker compose ps | grep -q "Up"; then
+    if $DOCKER_COMPOSE ps | grep -q "Up"; then
         echo "✅ All services are running!"
     else
-        echo "⚠️  Some services may not be running. Check with: docker compose ps"
+        echo "⚠️  Some services may not be running. Check with: $DOCKER_COMPOSE ps"
     fi
 else
     echo ""
     echo "⏸️  Configuration saved. Deploy later with:"
-    echo "   docker compose up -d --build"
+    echo "   $DOCKER_COMPOSE up -d --build"
     echo ""
 fi
 
